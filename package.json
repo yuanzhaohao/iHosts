@@ -7,7 +7,7 @@
     "start": "electron .",
     "build": "atool-build",
     "lint": "eslint --ext .js,.jsx src/",
-    "dev": "dora -p 8001 --plugins webpack",
+    "dev": "dora -p 8001 --plugins webpack"
   },
   "repository": {
     "type": "git",
