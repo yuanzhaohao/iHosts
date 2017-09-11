@@ -1,0 +1,41 @@
+
+
+.editor {
+  position: absolute;
+  top: 0;
+  left: 250px;
+  bottom: 0px;
+  right: 0px;
+
+  .CodeMirror {
+    font-family: "Source Code Pro", Monaco, "Courier New", sans-serif;
+  }
+
+  .cm-s-default .cm-comment {
+    color: #090;
+  }
+  .cm-s-default .cm-ip {
+    color: #00a;
+    font-weight: bold;
+  }
+  .cm-s-default .cm-hl {
+    background: #ff0;
+  }
+  .CodeMirror-gutters {
+    border-right: none;
+    padding-right: 6px;
+  }
+
+  .CodeMirror-linenumber {
+    cursor: pointer;
+  }
+
+  &.readonly .CodeMirror {
+    .CodeMirror-linenumber {
+      cursor: default;
+    }
+    .CodeMirror-cursors {
+      display: none;
+    }
+  }
+}
