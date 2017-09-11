@@ -8,7 +8,6 @@
     "build": "atool-build",
     "lint": "eslint --ext .js,.jsx src/",
     "dev": "dora -p 8001 --plugins webpack",
-    "test": "atool-test-mocha ./**/__tests__/*-test.js"
   },
   "repository": {
     "type": "git",
