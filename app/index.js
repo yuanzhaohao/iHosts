@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Pannel from './components/pannel.jsx';
+import Pannel from './components/panel.jsx';
 import Editor from './components/editor.jsx';
 import './index.less';
 

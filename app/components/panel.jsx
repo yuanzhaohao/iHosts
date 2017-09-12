@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Icon, Switch } from 'antd';
-import './pannel.less';
+import './panel.less';
 
 export default class Pannel extends React.Component {
   constructor(props) {

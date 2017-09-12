@@ -3,12 +3,13 @@
 import React from 'react';
 import CodeMirror from 'codemirror';
 import 'codemirror/lib/codemirror.css';
-
 import './editor.less';
 
-CodeMirror.defineMode('hosts', function () {
-  function tokenBase (stream) {
-    if (stream.eatSpace()) return null
+CodeMirror.defineMode('hosts', function() {
+  function tokenBase(stream) {
+    if (stream.eatSpace()) {
+      return null;
+    }
 
     let sol = stream.sol()
     let ch = stream.next()
@@ -17,30 +18,32 @@ CodeMirror.defineMode('hosts', function () {
 
     if (ch === '#') {
       stream.skipToEnd()
-      return 'comment'
+      return 'comment';
     }
     if (!s.match(/^\s*([\d\.]+|[\da-f:\.%lo]+)\s+\w/i)) {
-      return 'error'
+      return 'error';
     }
 
     if (sol && ch.match(/[\w\.:%]/)) {
       stream.eatWhile(/[\w\.:%]/)
-      return 'ip'
+      return 'ip';
     }
 
-    return null
+    return null;
   }
 
-  function tokenize (stream, state) {
-    return (state.tokens[0] || tokenBase)(stream, state)
+  function tokenize(stream, state) {
+    return (state.tokens[0] || tokenBase)(stream, state);
   }
 
   return {
-    startState: function () {
-      return {tokens: []}
+    startState: function() {
+      return {
+        tokens: []
+      };
     },
-    token: function (stream, state) {
-      return tokenize(stream, state)
+    token: function(stream, state) {
+      return tokenize(stream, state);
     },
     lineComment: '#'
   }
