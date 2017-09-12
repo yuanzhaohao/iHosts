@@ -11,10 +11,9 @@ CodeMirror.defineMode('hosts', function() {
       return null;
     }
 
-    let sol = stream.sol()
-    let ch = stream.next()
-
-    let s = stream.string
+    let sol = stream.sol();
+    let ch = stream.next();
+    let s = stream.string;
 
     if (ch === '#') {
       stream.skipToEnd()
@@ -46,7 +45,7 @@ CodeMirror.defineMode('hosts', function() {
       return tokenize(stream, state);
     },
     lineComment: '#'
-  }
+  };
 });
 
 export default class Editor extends React.Component {
