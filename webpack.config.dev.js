@@ -4,7 +4,6 @@ const webpack = require('webpack');
 const HappyPack = require('happypack');
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CompressionWebpackPlugin = require('compression-webpack-plugin');
 
 const extractCSS = new ExtractTextPlugin('[name].css', {
   allChunks: true
@@ -24,6 +23,7 @@ const happypackJS = new HappyPack({
     }
   }]
 });
+
 const happypackLESS = new HappyPack({
   id: 'lessHappy',
   threadPool: happyThreadPool,
@@ -37,31 +37,6 @@ const happypackCSS = new HappyPack({
     { loader: 'postcss-loader', options: { plugins: () => [require('autoprefixer')] } }
   ]
 });
-const uglifyJS = new webpack.optimize.UglifyJsPlugin({
- comments: false,
- compress: {
-   warnings: false
- }
-});
-const compressionCode = new CompressionWebpackPlugin({ //gzip 压缩
-  asset: '[path].min[query]',
-  algorithm: 'gzip',
-  filename: function(name) {
-    if (name.indexOf('.js.min') > -1) {
-      return name.replace('.js.min', '.min.js');
-    }
-    if (name.indexOf('.css.min') > -1) {
-      return name.replace('.css.min', '.min.css');
-    }
-    return name;
-  },
-  test: new RegExp(
-    '\\.(js|css|less)$'
-  ),
-  threshold: 10240,
-  minRatio: 0.8
-});
-
 
 module.exports = {
   entry: './src/index.js',
@@ -87,7 +62,5 @@ module.exports = {
     happypackJS,
     happypackLESS,
     happypackCSS,
-    uglifyJS,
-    // compressionCode,
   ]
 };

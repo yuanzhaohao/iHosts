@@ -4,7 +4,8 @@
   "description": "A tool to switch hosts",
   "scripts": {
     "start": "electron .",
-    "build": "webpack",
+    "build": "webpack --config webpack.config.js",
+    "dev": "webpack-dev-server --config webpack.config.dev.js",
     "lint": "eslint --ext .js .jsx src"
   },
   "repository": {
@@ -37,6 +38,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "compression-webpack-plugin": "^1.0.0",
     "css-loader": "^0.28.7",
     "electron": "^1.6.13",
     "eslint": "^3.12.2",
@@ -52,6 +54,7 @@
     "postcss-loader": "^2.0.6",
     "pre-commit": "^1.2.2",
     "style-loader": "^0.18.2",
-    "webpack": "^3.5.6"
+    "webpack": "^3.5.6",
+    "webpack-dev-server": "^2.8.1"
   }
 }

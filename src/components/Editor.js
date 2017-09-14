@@ -59,6 +59,9 @@ export default class Editor extends React.Component {
       lineNumbers: true,
       mode: 'hosts'
     });
+
+    console.log(this.refs.editor);
+    console.log(CodeMirror.fromTextArea);
   }
 
   render() {
