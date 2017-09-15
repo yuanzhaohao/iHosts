@@ -1,14 +1,15 @@
-const path = require('path');
 const os = require('os');
 const webpack = require('webpack');
 const HappyPack = require('happypack');
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CompressionWebpackPlugin = require('compression-webpack-plugin');
 
-const extractCSS = new ExtractTextPlugin('[name].css', {
+exports.extractCSS = new ExtractTextPlugin('[name].css', {
   allChunks: true
 });
-const happypackJS = new HappyPack({
+
+exports.happypackJS = new HappyPack({
   id: 'jsHappy',
   cache: true,
   threadPool: happyThreadPool,
@@ -24,12 +25,13 @@ const happypackJS = new HappyPack({
   }]
 });
 
-const happypackLESS = new HappyPack({
+exports.happypackLESS = new HappyPack({
   id: 'lessHappy',
   threadPool: happyThreadPool,
   loaders: [ 'css-loader', 'less-loader' ]
 });
-const happypackCSS = new HappyPack({
+
+exports.happypackCSS = new HappyPack({
   id: 'cssHappy',
   threadPool: happyThreadPool,
   loaders: [
@@ -38,29 +40,20 @@ const happypackCSS = new HappyPack({
   ]
 });
 
-module.exports = {
-  entry: './src/index.js',
-  output: {
-    filename: 'index.js',
-    path: path.resolve(__dirname, 'dist')
-  },
-  module: {
-    loaders: [{
-      test: /\.js|jsx$/,
-      loader: 'HappyPack/loader?id=jsHappy',
-      exclude: /node_modules/
-    }, {
-      test: /\.less$/,
-      use: extractCSS.extract('happypack/loader?id=lessHappy')
-    }, {
-      test: /\.css$/,
-      use: extractCSS.extract('happypack/loader?id=cssHappy')
-    }]
-  },
-  plugins: [
-    extractCSS,
-    happypackJS,
-    happypackLESS,
-    happypackCSS,
-  ]
-};
+exports.uglifyJS = new webpack.optimize.UglifyJsPlugin({
+ comments: false,
+ compress: {
+   warnings: false
+ }
+});
+exports.mergingPlugin = new webpack.optimize.AggressiveMergingPlugin();
+
+exports.compressionCode = new CompressionWebpackPlugin({ //gzip 压缩
+  asset: '[path].gz[query]',
+  algorithm: 'gzip',
+  test: new RegExp(
+    '\\.(js|css|less)$'
+  ),
+  threshold: 10240,
+  minRatio: 0.8
+});
