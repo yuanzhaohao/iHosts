@@ -3,9 +3,14 @@ const webpack = require('webpack');
 const plugins = require('./plugins');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    index: './src/index.js',
+    // lib: [
+    //   'react', 'react-dom', 'antd', 'codemirror'
+    // ]
+  },
   output: {
-    filename: 'index.js',
+    filename: '[name].js',
     sourceMapFilename: '[name].map',
     chunkFilename: '[name].[chunkhash].chunk.js',
     path: path.resolve(__dirname, '../dist')
@@ -31,5 +36,8 @@ module.exports = {
     plugins.mergingPlugin,
     plugins.uglifyJS,
     plugins.compressionCode,
-  ]
+  ],
+  node: {
+    fs: 'empty'
+  }
 };

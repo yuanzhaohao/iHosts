@@ -4,7 +4,7 @@ const plugins = require('./plugins');
 module.exports = {
   entry: './src/index.js',
   output: {
-    filename: 'index.js',
+    filename: '[name].js',
     sourceMapFilename: '[name].map',
     chunkFilename: '[name].[chunkhash].chunk.js',
     path: path.resolve(__dirname, '../dist')
@@ -27,5 +27,9 @@ module.exports = {
     plugins.happypackJS,
     plugins.happypackLESS,
     plugins.happypackCSS,
-  ]
+  ],
+  node: {
+    fs: 'empty'
+  },
+  target: 'electron'
 };
