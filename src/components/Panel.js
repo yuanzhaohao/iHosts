@@ -10,38 +10,28 @@ export default class Pannel extends React.Component {
   }
 
   render() {
+    const {list, currentIndex} = this.props;
     return (
       <div className="pannel">
         <ul className="pannel-list">
-          <li className="item header">
-            <Icon type="desktop" />
-            <span className="item-text">System Hosts</span>
-          </li>
-          <li className="item">
-            <Icon type="file-text" />
-            <span className="item-text">hosts 1</span>
-            <Switch />
-          </li>
-          <li className="item">
-            <Icon type="file-text" />
-            <span className="item-text">hosts 2</span>
-            <Switch />
-          </li>
-          <li className="item active">
-            <Icon type="file-text" />
-            <span className="item-text">hosts 3</span>
-            <Switch />
-          </li>
-          <li className="item">
-            <Icon type="file-text" />
-            <span className="item-text">hosts 4</span>
-            <Switch />
-          </li>
-          <li className="item">
-            <Icon type="file-text" />
-            <span className="item-text">hosts 5</span>
-            <Switch />
-          </li>
+        {list && list.length
+          ? list.map((itemData, index) =>
+            <li key={index}
+              className={index === 0
+                ? index === currentIndex ? 'item header active' : 'item header'
+                : index === currentIndex ? 'item active' : 'item'
+              }
+            >
+              <Icon type={index === 0 ? 'desktop' : 'file-text'} />
+              <span className="item-text">{itemData.title}</span>
+              {index !== 0
+                ? <Switch />
+                : null
+              }
+            </li>
+          )
+          : null
+        }
         </ul>
       </div>
     );

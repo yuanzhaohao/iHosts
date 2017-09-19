@@ -51,10 +51,14 @@ CodeMirror.defineMode('hosts', function() {
 export default class Editor extends React.Component {
   constructor(props) {
     super(props);
+
+    const {currentIndex, list} = props;
+    this.state = {
+      hostsText: list && list[currentIndex] ? list[currentIndex].content : ''
+    }
   }
 
   componentDidMount() {
-    this.refs.editor.value = "# localhost\n127.0.0.1 localhost\n\n# xiaowei\n127.0.0.1 yzh.qcloud.com\n";
     CodeMirror.fromTextArea(this.refs.editor, {
       lineNumbers: true,
       mode: 'hosts'
@@ -62,9 +66,10 @@ export default class Editor extends React.Component {
   }
 
   render() {
+    const {hostsText} = this.state;
     return (
       <div className="editor">
-        <textarea ref="editor"></textarea>
+        <textarea ref="editor">{hostsText}</textarea>
       </div>
     );
   }

@@ -26,6 +26,12 @@ if (!utils.isFile(dataPath)) {
       list: [{
         title: 'System Hosts',
         content: cnt
+      }, {
+        title: '测试',
+        content: '## 测试\n10.10.10.10 yzh.taobao.com'
+      }, {
+        title: '测试1',
+        ceontent: '## 测试1\n9.9.9.12 yzh.m.taobao.com'
       }]
     };
     fs.writeFileSync(dataPath, JSON.stringify(defaultData), 'utf-8');
@@ -37,5 +43,6 @@ if (!utils.isFile(dataPath)) {
 module.exports = {
   homePath,
   workPath,
-  dataPath
+  dataPath,
+  sysHostsPath
 };
