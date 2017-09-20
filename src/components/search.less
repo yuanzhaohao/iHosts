@@ -3,23 +3,48 @@
   top: 0;
   left: 0;
   width: 250px;
-  height: 36px;
-  padding: 5px;
+  height: 40px;
+  padding: 7px;
   background-color: #21252b;
   border-right: 1px solid #181a20;
   box-sizing: border-box;
 
   .search-inner {
-    height: 26px;
-    border-radius: 5px;
+    height: 28px;
     background-color: #1b1d24;
     border: 1px solid #1b1d24;
-    color: #696f7a;
     line-height: 26px;
     box-sizing: border-box;
   }
 
   .search-icon {
     font-size: 16px;
+    color: #696f7a;
+  }
+
+  .ant-input {
+    height: 28px;
+    color: #d7dae0;
+    border-color: #1b1d24;
+    border-radius: 5px;
+    background-color: #1b1d24;
+
+    &:hover {
+      background-color: #202635;
+      border-color: #5487f5;
+      color: #d7dae0;
+
+      .search-icon {
+        color: #d7dae0;
+      }
+    }
+
+    &::-webkit-input-placeholder {
+      color: #696d7a;
+    }
+
+    &::selection {
+      background-color: #5487f5;
+    }
   }
 }
