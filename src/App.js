@@ -8,7 +8,7 @@ import hosts from './models/hosts';
 import Search from './components/Search';
 import Pannel from './components/Panel';
 import Editor from './components/Editor';
-import Operation from './components/Operation';
+import Setting from './components/Setting';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -28,7 +28,7 @@ export default class App extends React.Component {
         <Search />
         <Pannel list={list} currentIndex={currentIndex} />
         <Editor list={list} currentIndex={currentIndex} />
-        <Operation />
+        <Setting />
       </div>
     );
   }
