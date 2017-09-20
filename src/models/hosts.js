@@ -7,6 +7,7 @@ export default {
     try {
       const sysData = fs.readFileSync(paths.sysHostsPath, 'utf-8');
       const data = JSON.parse(fs.readFileSync(paths.dataPath, 'utf-8'));
+      console.log(sysData.match(/##([.*])/g));
       return data;
     } catch (e) {
       return [];

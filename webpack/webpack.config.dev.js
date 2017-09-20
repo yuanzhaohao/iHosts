@@ -2,7 +2,12 @@ const path = require('path');
 const plugins = require('./plugins');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    index: './src/index.js',
+    // lib: [
+    //   'react', 'react-dom', 'antd', 'codemirror'
+    // ]
+  },
   output: {
     filename: '[name].js',
     sourceMapFilename: '[name].map',

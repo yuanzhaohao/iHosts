@@ -69,7 +69,7 @@ export default class Editor extends React.Component {
     const {hostsText} = this.state;
     return (
       <div className="editor">
-        <textarea ref="editor">{hostsText}</textarea>
+        <textarea ref="editor" defaultValue={hostsText}></textarea>
       </div>
     );
   }
