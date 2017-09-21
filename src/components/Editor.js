@@ -1,11 +1,12 @@
 'use strict';
 
 import React from 'react';
-import CodeMirror from 'codemirror';
+import codeMirror from 'codemirror';
+import classNames from 'classnames';
 import 'codemirror/lib/codemirror.css';
 import './editor.less';
 
-CodeMirror.defineMode('hosts', function() {
+codeMirror.defineMode('hosts', function() {
   function tokenBase(stream) {
     if (stream.eatSpace()) {
       return null;
@@ -55,18 +56,18 @@ export default class Editor extends React.Component {
 
   componentDidMount() {
     const {currentIndex, list} = this.props;
-    this.codemirror = CodeMirror.fromTextArea(this.refs.editor, {
+    this.codeMirror = codeMirror.fromTextArea(this.refs.editor, {
       lineNumbers: true,
       mode: 'hosts'
     });
     if (list && list[currentIndex] && list[currentIndex].isSys) {
-      this.codemirror.setOption('readOnly', true);
+      this.codeMirror.setOption('readOnly', true);
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.currentIndex !== this.props.currentIndex) {
-      const doc = this.codemirror.getDoc();
+      const doc = this.codeMirror.getDoc();
       const value = doc.getValue();
       const {currentIndex, list} = nextProps;
       if (list && list[currentIndex]) {
@@ -74,7 +75,7 @@ export default class Editor extends React.Component {
         if (newCode && newCode !== value) {
           doc.setValue(newCode);
         }
-        this.codemirror.setOption('readOnly', list[currentIndex].isSys);
+        this.codeMirror.setOption('readOnly', list[currentIndex].isSys);
       }
     }
   }
@@ -84,7 +85,7 @@ export default class Editor extends React.Component {
     const itemData = list[currentIndex];
     const hostsCode = itemData.content || '';
     return (
-      <div className={itemData.isSys ? 'editor editor-readonly' : 'editor'}>
+      <div className={classNames(['editor', {'editor-readonly': itemData.isSys}])}>
         <textarea ref="editor" defaultValue={hostsCode}></textarea>
       </div>
     );

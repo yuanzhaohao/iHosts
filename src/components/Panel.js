@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import classNames from 'classnames';
 import { Icon, Switch } from 'antd';
 import emitter from '../lib/emitter';
 import './panel.less';
@@ -18,10 +19,11 @@ export default class Pannel extends React.Component {
         {list && list.length
           ? list.map((itemData, index) =>
             <li key={index}
-              className={index === 0
-                ? index === currentIndex ? 'item header active' : 'item header'
-                : index === currentIndex ? 'item active' : 'item'
-              }
+              className={classNames(['item', {
+                'header': index === 0
+              }, {
+                'active': index === currentIndex
+              }])}
               onClick={this.onItemClick.bind(this, itemData, index)}
             >
               <Icon type={index === 0 ? 'desktop' : 'file-text'} />
