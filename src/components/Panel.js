@@ -40,7 +40,6 @@ export default class Pannel extends React.Component {
   }
 
   onItemClick = (itemData, index) => {
-    console.log(itemData);
     emitter.emit('switchHost', index);
   }
 }

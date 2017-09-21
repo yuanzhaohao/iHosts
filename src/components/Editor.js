@@ -54,33 +54,37 @@ export default class Editor extends React.Component {
   }
 
   componentDidMount() {
+    const {currentIndex, list} = this.props;
     this.codemirror = CodeMirror.fromTextArea(this.refs.editor, {
       lineNumbers: true,
       mode: 'hosts'
     });
+    if (list && list[currentIndex] && list[currentIndex].isSys) {
+      this.codemirror.setOption('readOnly', true);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.currentIndex !== this.props.currentIndex) {
-      console.log('componentWillReceiveProps', nextProps);
       const doc = this.codemirror.getDoc();
       const value = doc.getValue();
       const {currentIndex, list} = nextProps;
-      const newCode = list && list[currentIndex] ? list[currentIndex].content : '';
-      if (newCode && newCode !== value) {
-        const cursorPos = doc.getCursor();
-        console.log(newCode);
-        doc.setValue(newCode);
-        doc.setCursor(cursorPos);
+      if (list && list[currentIndex]) {
+        const newCode = list[currentIndex].content;
+        if (newCode && newCode !== value) {
+          doc.setValue(newCode);
+        }
+        this.codemirror.setOption('readOnly', list[currentIndex].isSys);
       }
     }
   }
 
   render() {
     const {currentIndex, list} = this.props;
-    const hostsCode = list && list[currentIndex] ? list[currentIndex].content : '';
+    const itemData = list[currentIndex];
+    const hostsCode = itemData.content || '';
     return (
-      <div className="editor">
+      <div className={itemData.isSys ? 'editor editor-readonly' : 'editor'}>
         <textarea ref="editor" defaultValue={hostsCode}></textarea>
       </div>
     );

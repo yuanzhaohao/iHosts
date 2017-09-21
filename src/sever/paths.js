@@ -25,7 +25,8 @@ if (!utils.isFile(dataPath)) {
     const defaultData = {
       list: [{
         title: 'System Hosts',
-        content: cnt
+        content: cnt,
+        isSys: true
       }, {
         title: '测试3',
         content: '# 测试3\n9.9.9.12 yzh.m.taobao.com\n\n# 测试1\n9.9.9.12 yzh.m.taobao.com\n'
