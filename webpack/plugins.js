@@ -9,7 +9,7 @@ module.exports = {
   extractCSS: new ExtractTextPlugin('[name].css', {
     allChunks: true
   }),
-  
+
   happypackJS: new HappyPack({
     id: 'jsHappy',
     cache: true,
@@ -20,7 +20,8 @@ module.exports = {
         cacheDirectory: '.webpack_cache',
         presets: [
           'es2015',
-          'react'
+          'react',
+          'stage-0'
         ]
       }
     }]
