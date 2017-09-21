@@ -6,7 +6,7 @@ import paths from './sever/paths';
 import hosts from './models/hosts';
 
 import Search from './components/Search';
-import Pannel from './components/Panel';
+import Panel from './components/Panel';
 import Editor from './components/Editor';
 import Setting from './components/Setting';
 
@@ -34,7 +34,7 @@ export default class App extends React.Component {
     return (
       <div className="container">
         <Search />
-        <Pannel list={list} currentIndex={currentIndex} />
+        <Panel list={list} currentIndex={currentIndex} />
         <Editor list={list} currentIndex={currentIndex} />
         <Setting />
       </div>

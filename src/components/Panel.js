@@ -2,11 +2,12 @@
 
 import React from 'react';
 import classNames from 'classnames';
-import { Icon, Switch } from 'antd';
+import { Icon } from 'antd';
 import emitter from '../lib/emitter';
+import PanelOperation from './panelOperation';
 import './panel.less';
 
-export default class Pannel extends React.Component {
+export default class Panel extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -14,8 +15,8 @@ export default class Pannel extends React.Component {
   render() {
     const {list, currentIndex} = this.props;
     return (
-      <div className="pannel">
-        <ul className="pannel-list">
+      <div className="panel">
+        <ul className="panel-list">
         {list && list.length
           ? list.map((itemData, index) =>
             <li key={index}
@@ -29,7 +30,7 @@ export default class Pannel extends React.Component {
               <Icon type={index === 0 ? 'desktop' : 'file-text'} />
               <span className="item-text">{itemData.title}</span>
               {index !== 0
-                ? <Switch />
+                ? <PanelOperation />
                 : null
               }
             </li>

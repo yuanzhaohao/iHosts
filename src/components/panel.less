@@ -1,4 +1,4 @@
-.pannel {
+.panel {
   position: absolute;
   top: 40px;
   left: 0;
@@ -11,7 +11,39 @@
   box-sizing: border-box;
 }
 
-.pannel-list {
+.panel-operation {
+  display: flex;
+  position: absolute;
+  right: 12px;
+  top: 0;
+  height: 36px;
+  flex-direction: row;
+
+
+
+  .operation-item {
+    display: flex;
+    height: 36px;
+    padding-left: 7px;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+
+    &.hide {
+      display: none;
+    }
+
+    &:hover {
+      color: #5daef2;
+
+      .ant-switch {
+        border-color: #5daef2;
+      }
+    }
+  }
+}
+
+.panel-list {
   position: absolute;
   top: 0;
   left: 0;
@@ -22,7 +54,7 @@
     position: relative;
     width: 100%;
     height: 36px;
-    padding-left: 18px;
+    padding-left: 12px;
     line-height: 36px;
     color: #9da5b5;
     font-size: 13px;
@@ -33,6 +65,12 @@
       background-color: #2c313a;
       color: #d7dae0;
     }
+
+    &:hover {
+      .operation-item {
+        display: flex;
+      }
+    }
   }
 
   .item-text {
@@ -40,11 +78,8 @@
   }
 
   .ant-switch {
-    position: absolute;
-    right: 18px;
-    top: 12px;
-    height: 12px;
     width: 22px;
+    height: 12px;
     min-width: 10px;
     background-color: transparent;
     border-color: #9da5b5;
@@ -59,11 +94,11 @@
 
   .ant-switch-checked {
     // background-color: #108ee9;
-    border-color: #108ee9;
+    border-color: #5daef2;
 
     &::after {
       margin-left: 10px;
-      background-color: #108ee9;
+      background-color: #5daef2;
     }
   }
 }
