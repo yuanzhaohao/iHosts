@@ -13,12 +13,6 @@ export default class Setting extends React.Component {
     };
   }
 
-  onAddClick = () => {
-    this.setState({
-      visible: true
-    });
-  }
-
   render() {
     return (
       <div className="setting clearfix">
@@ -31,8 +25,8 @@ export default class Setting extends React.Component {
         <Modal
           title="Basic Modal"
           visible={this.state.visible}
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
+          onOk={this.onOKClick}
+          onCancel={this.onCancelClick}
         >
           <p>Some contents...</p>
           <p>Some contents...</p>
@@ -40,5 +34,23 @@ export default class Setting extends React.Component {
         </Modal>
       </div>
     );
+  }
+
+  onAddClick = () => {
+    this.setState({
+      visible: true
+    });
+  }
+
+  onOKClick = () => {
+    this.setState({
+      visible: false
+    });
+  }
+
+  onCancelClick = () => {
+    this.setState({
+      visible: false
+    });
   }
 }

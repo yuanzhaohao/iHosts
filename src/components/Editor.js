@@ -51,25 +51,37 @@ CodeMirror.defineMode('hosts', function() {
 export default class Editor extends React.Component {
   constructor(props) {
     super(props);
-
-    const {currentIndex, list} = props;
-    this.state = {
-      hostsText: list && list[currentIndex] ? list[currentIndex].content : ''
-    }
   }
 
   componentDidMount() {
-    CodeMirror.fromTextArea(this.refs.editor, {
+    this.codemirror = CodeMirror.fromTextArea(this.refs.editor, {
       lineNumbers: true,
       mode: 'hosts'
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.currentIndex !== this.props.currentIndex) {
+      console.log('componentWillReceiveProps', nextProps);
+      const doc = this.codemirror.getDoc();
+      const value = doc.getValue();
+      const {currentIndex, list} = nextProps;
+      const newCode = list && list[currentIndex] ? list[currentIndex].content : '';
+      if (newCode && newCode !== value) {
+        const cursorPos = doc.getCursor();
+        console.log(newCode);
+        doc.setValue(newCode);
+        doc.setCursor(cursorPos);
+      }
+    }
+  }
+
   render() {
-    const {hostsText} = this.state;
+    const {currentIndex, list} = this.props;
+    const hostsCode = list && list[currentIndex] ? list[currentIndex].content : '';
     return (
       <div className="editor">
-        <textarea ref="editor" defaultValue={hostsText}></textarea>
+        <textarea ref="editor" defaultValue={hostsCode}></textarea>
       </div>
     );
   }

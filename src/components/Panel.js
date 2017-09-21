@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Icon, Switch } from 'antd';
+import emitter from '../lib/emitter';
 import './panel.less';
 
 export default class Pannel extends React.Component {
@@ -21,6 +22,7 @@ export default class Pannel extends React.Component {
                 ? index === currentIndex ? 'item header active' : 'item header'
                 : index === currentIndex ? 'item active' : 'item'
               }
+              onClick={this.onItemClick.bind(this, itemData, index)}
             >
               <Icon type={index === 0 ? 'desktop' : 'file-text'} />
               <span className="item-text">{itemData.title}</span>
@@ -35,5 +37,10 @@ export default class Pannel extends React.Component {
         </ul>
       </div>
     );
+  }
+
+  onItemClick = (itemData, index) => {
+    console.log(itemData);
+    emitter.emit('switchHost', index);
   }
 }
