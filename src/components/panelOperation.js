@@ -27,6 +27,15 @@ export default class PanelOperation extends React.Component {
     );
   }
 
+
+  onHostChange = (checked) => {
+    console.log(checked);
+    const {itemData, index} = this.props;
+    if (checked) {
+
+    }
+  }
+
   onEditClick = (e) => {
     const {itemData, index} = this.props;
 
@@ -39,9 +48,5 @@ export default class PanelOperation extends React.Component {
 
     console.log('call onDeleteClick');
     e.stopPropagation();
-  }
-
-  onHostChange = (checked) => {
-    console.log(checked);
   }
 }
