@@ -22,6 +22,7 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
+    console.log('call componentDidMount');
     emitter.on('switchHost', (index) => {
       this.setState({
         currentIndex: index
