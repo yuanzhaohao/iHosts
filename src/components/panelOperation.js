@@ -29,7 +29,6 @@ export default class PanelOperation extends React.Component {
 
 
   onHostChange = (checked) => {
-    console.log(checked);
     const {itemData, index} = this.props;
     if (checked) {
 
