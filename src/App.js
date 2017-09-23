@@ -2,7 +2,7 @@ import React from 'react';
 import './app.less';
 
 import emitter from './lib/emitter';
-import paths from './sever/paths';
+import paths from './lib/paths';
 import hosts from './models/hosts';
 
 import Search from './components/Search';

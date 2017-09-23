@@ -1,5 +1,5 @@
 import fs from 'fs';
-import paths from '../sever/paths';
+import paths from '../lib/paths';
 
 export default {
 
