@@ -15,7 +15,6 @@ if (!utils.isDirectory(workPath)) {
   try {
     fs.mkdirSync(workPath);
   } catch (e) {
-    console.log(e);
   }
 }
 

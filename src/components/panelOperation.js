@@ -3,6 +3,7 @@
 import React from 'react';
 import {Icon, Switch} from 'antd';
 import emitter from '../lib/emitter';
+import hosts from '../models/hosts';
 import './panel.less';
 
 export default class PanelOperation extends React.Component {
@@ -30,7 +31,9 @@ export default class PanelOperation extends React.Component {
   onHostChange = (checked) => {
     const {itemData, index} = this.props;
     if (checked) {
-
+      itemData.active = true;
+    } else {
+      itemData.active = false;
     }
   }
 
