@@ -26,12 +26,6 @@ if (!utils.isFile(dataPath)) {
         title: 'System Hosts',
         content: cnt,
         isSys: true
-      }, {
-        title: '测试3',
-        content: '# 测试3\n9.9.9.12 yzh.m.taobao.com\n\n# 测试1\n9.9.9.12 yzh.m.taobao.com\n'
-      }, {
-        title: '测试1',
-        content: '# 测试1\n9.9.9.12 yzh.m.taobao.com\n\n# 测试1\n9.9.9.12 yzh.m.taobao.com\n'
       }]
     };
     fs.writeFileSync(dataPath, JSON.stringify(defaultData), 'utf-8');

@@ -72,9 +72,7 @@ export default class Editor extends React.Component {
       const {currentIndex, list} = nextProps;
       if (list && list[currentIndex]) {
         const newCode = list[currentIndex].content;
-        if (newCode && newCode !== value) {
-          doc.setValue(newCode);
-        }
+        doc.setValue(newCode);
         this.codeMirror.setOption('readOnly', list[currentIndex].isSys);
       }
     }
@@ -84,6 +82,7 @@ export default class Editor extends React.Component {
     const {currentIndex, list} = this.props;
     const itemData = list[currentIndex];
     const hostsCode = itemData.content || '';
+    console.log(hostsCode);
     return (
       <div className={classNames(['editor', {'editor-readonly': itemData.isSys}])}>
         <textarea ref="editor" defaultValue={hostsCode}></textarea>

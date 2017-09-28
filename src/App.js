@@ -28,6 +28,12 @@ export default class App extends React.Component {
         currentIndex: index
       });
     });
+    emitter.on('updateList', () => {
+      const hostsData = hosts.getHosts();
+      this.setState({
+        list: hostsData.list,
+      });
+    });
   }
 
   render() {

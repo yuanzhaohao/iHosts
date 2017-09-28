@@ -21,7 +21,15 @@ export default {
     }
   },
 
-  storeHost() {
-    
+  addHost(name) {
+    let data = JSON.parse(fs.readFileSync(paths.dataPath, 'utf-8'));
+    console.log(data);
+    if (data && data.list && data.list instanceof Array) {
+      data.list.push({
+        content: `# ${name}\n`,
+        title: name
+      });
+      fs.writeFileSync(paths.dataPath, JSON.stringify(data), 'utf-8');
+    }
   }
 };

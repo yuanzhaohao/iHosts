@@ -1,7 +1,11 @@
 'use strict';
 
 import React from 'react';
-import { Icon, Modal } from 'antd';
+import { Icon, Popover } from 'antd';
+
+import emitter from '../lib/emitter';
+
+import SettingAdd from './SettingAdd';
 import './setting.less';
 
 export default class Setting extends React.Component {
@@ -19,38 +23,46 @@ export default class Setting extends React.Component {
         <div className="setting-item">
           <Icon type="setting" />
         </div>
-        <div className="setting-item" onClick={this.onAddClick}>
-          <Icon type="plus" />
-        </div>
-        <Modal
-          title="Basic Modal"
+        <Popover
+          content={<SettingAdd onOKClick={this.onOKClick} onCancelClick={this.onCancelClick} />}
+          title="新增Host"
+          trigger="click"
           visible={this.state.visible}
-          onOk={this.onOKClick}
-          onCancel={this.onCancelClick}
+          onVisibleChange={this.onVisibleChange}
         >
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-        </Modal>
+          <div className="setting-item" onClick={this.onAddClick}>
+            <Icon type="plus" />
+          </div>
+        </Popover>
       </div>
     );
   }
 
-  onAddClick = () => {
+  hide = () => {
+    this.setState({
+      visible: false
+    });
+  }
+
+  onAddClick = (e) => {
     this.setState({
       visible: true
     });
+    e.stopPropagation();
   }
 
   onOKClick = () => {
-    this.setState({
-      visible: false
-    });
+    this.hide();
+    emitter.emit('updateList');
   }
 
   onCancelClick = () => {
-    this.setState({
-      visible: false
-    });
+    this.hide();
+  }
+
+
+
+  onVisibleChange = (visible) => {
+    this.setState({ visible });
   }
 }
