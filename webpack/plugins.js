@@ -30,7 +30,7 @@ module.exports = {
   happypackLESS: new HappyPack({
     id: 'lessHappy',
     threadPool: happyThreadPool,
-    loaders: [ 'css-loader', 'less-loader' ]
+    loaders: ['css-loader', 'less-loader']
   }),
 
   happypackCSS: new HappyPack({
