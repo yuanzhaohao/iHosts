@@ -77,8 +77,7 @@ export default class Editor extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.currentIndex !== this.props.currentIndex) {
-      const doc = this.cm.getDoc();
-      const value = doc.getValue();
+      const value = this.getCmValue();
       const {currentIndex, list} = nextProps;
       if (list && list[currentIndex]) {
         const newCode = list[currentIndex].content;
@@ -98,6 +97,11 @@ export default class Editor extends React.Component {
         <textarea ref="editor" defaultValue={hostsCode}></textarea>
       </div>
     );
+  }
+
+  getCmValue() {
+    const doc = this.cm.getDoc();
+    return doc.getValue();
   }
 
   handleSave = () => {
