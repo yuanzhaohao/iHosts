@@ -49,6 +49,9 @@ codeMirror.defineMode('hosts', function() {
   };
 });
 
+const isMac = codeMirror.keyMap.default === codeMirror.keyMap.macDefault;
+
+
 export default class Editor extends React.Component {
   constructor(props) {
     super(props);
@@ -56,24 +59,31 @@ export default class Editor extends React.Component {
 
   componentDidMount() {
     const {currentIndex, list} = this.props;
-    this.codeMirror = codeMirror.fromTextArea(this.refs.editor, {
+    const saveKey = `${isMac ? 'Cmd' : 'Ctrl'}-S`;
+    const extraKeys = {};
+
+    extraKeys[saveKey] = this.handleSave;
+    this.cm = codeMirror.fromTextArea(this.refs.editor, {
       lineNumbers: true,
-      mode: 'hosts'
+      mode: 'hosts',
+      extraKeys,
     });
-    if (list && list[currentIndex] && list[currentIndex].isSys) {
-      this.codeMirror.setOption('readOnly', true);
+    if (list && list[currentIndex]) {
+      if (list[currentIndex].isSys) {
+        this.cm.setOption('readOnly', true);
+      }
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.currentIndex !== this.props.currentIndex) {
-      const doc = this.codeMirror.getDoc();
+      const doc = this.cm.getDoc();
       const value = doc.getValue();
       const {currentIndex, list} = nextProps;
       if (list && list[currentIndex]) {
         const newCode = list[currentIndex].content;
         doc.setValue(newCode);
-        this.codeMirror.setOption('readOnly', list[currentIndex].isSys);
+        this.cm.setOption('readOnly', list[currentIndex].isSys);
       }
     }
   }
@@ -88,5 +98,15 @@ export default class Editor extends React.Component {
         <textarea ref="editor" defaultValue={hostsCode}></textarea>
       </div>
     );
+  }
+
+  handleSave = () => {
+    const {currentIndex, list} = this.props;
+
+    if (list[currentIndex].isSys) {
+      console.log('system hosts, do nothing');
+    } else {
+      console.log('save hosts', currentIndex);
+    }
   }
 }
