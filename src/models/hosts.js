@@ -13,10 +13,9 @@ export default {
     return {};
   },
 
-  storeSysHosts() {
+  storeHosts(data) {
     try {
-      const sysData = fs.readFileSync(paths.sysHostsPath, 'utf-8');
-
+      fs.writeFileSync(paths.dataPath, JSON.stringify(data), 'utf-8');
     } catch (e) {
     }
   },

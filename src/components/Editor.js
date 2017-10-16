@@ -3,6 +3,7 @@
 import React from 'react';
 import codeMirror from 'codemirror';
 import classNames from 'classnames';
+import hosts from '../models/hosts';
 import 'codemirror/lib/codemirror.css';
 import './editor.less';
 
@@ -81,6 +82,7 @@ export default class Editor extends React.Component {
       const {currentIndex, list} = nextProps;
       if (list && list[currentIndex]) {
         const newCode = list[currentIndex].content;
+        const doc = this.cm.getDoc();
         doc.setValue(newCode);
         this.cm.setOption('readOnly', list[currentIndex].isSys);
       }
@@ -106,11 +108,18 @@ export default class Editor extends React.Component {
 
   handleSave = () => {
     const {currentIndex, list} = this.props;
+    const currentItem = list[currentIndex];
 
-    if (list[currentIndex].isSys) {
+    if (currentItem.isSys) {
       console.log('system hosts, do nothing');
     } else {
-      console.log('save hosts', currentIndex);
+      const newCode = this.getCmValue();
+      if (newCode !== currentItem.content) {
+        currentItem.content = newCode;
+        hosts.storeHosts({
+          list
+        });
+      }
     }
   }
 }

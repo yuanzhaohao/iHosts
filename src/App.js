@@ -15,6 +15,7 @@ export default class App extends React.Component {
     super(props);
 
     const hostsData = hosts.getHosts();
+    console.log(hostsData);
     this.state = {
       list: hostsData.list,
       currentIndex: 0,
