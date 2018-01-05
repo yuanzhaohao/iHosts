@@ -4,6 +4,7 @@
 /node_modules
 
 /.webpack_cache
+/.happypack_cache
 
 # production
 /dist

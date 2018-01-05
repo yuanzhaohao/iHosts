@@ -3,5 +3,6 @@
   "staticPath": "./static",
   "assetsRoot": "./dist",
   "cssSourceMap": true,
+  "electron": true,
   "proxyTable": {}
 }

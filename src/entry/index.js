@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.less';
+import '../less/index.less';
 
-import emitter from './lib/emitter';
-import paths from './lib/paths';
-import hosts from './models/hosts';
+import emitter from '@/lib/emitter';
+import paths from '@/lib/paths';
+import hosts from '@/models/hosts';
 
-import Search from './components/Search';
-import Panel from './components/Panel';
-import Editor from './components/Editor';
-import Setting from './components/Setting';
+import Search from '@/components/Search';
+import Panel from '@/components/Panel';
+import Editor from '@/components/Editor';
+import Setting from '@/components/Setting';
 
 class App extends React.Component {
   constructor(props) {
