@@ -1,0 +1,7 @@
+{
+  "type": "vue",
+  "staticPath": "./static",
+  "assetsRoot": "./dist",
+  "cssSourceMap": true,
+  "proxyTable": {}
+}
