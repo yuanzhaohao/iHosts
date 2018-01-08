@@ -36,5 +36,5 @@ module.exports = {
   node: {
     fs: 'empty'
   },
-  target: 'electron'
+  target: 'electron-renderer'
 };

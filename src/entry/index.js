@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import '../less/index.less';
+import 'antd/dist/antd.less';
+import '@/less/index.less';
 
 import emitter from '@/lib/emitter';
 import paths from '@/lib/paths';

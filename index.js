@@ -10,11 +10,12 @@ let mainWindow
 function createWindow () {
   mainWindow = new BrowserWindow({width: 880, height: 600})
 
-  mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
-    protocol: 'file:',
-    slashes: true
-  }))
+  mainWindow.loadURL('http://localhost:9999/index.html');
+  // mainWindow.loadURL(url.format({
+  //   pathname: path.join(__dirname, 'dist/index.html'),
+  //   protocol: 'file:',
+  //   slashes: true
+  // }))
 
   mainWindow.on('closed', function () {
     mainWindow = null

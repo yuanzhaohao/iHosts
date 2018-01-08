@@ -8,6 +8,7 @@ const sysHostsPath = '/etc/hosts';
 const homePath = process.platform === 'win32'
   ? process.env.USERPROFILE
   : process.env.HOME;
+console.log(process.platform);
 const workPath = path.join(homePath, '.iHosts');
 const dataPath = path.join(workPath, 'data.json');
 

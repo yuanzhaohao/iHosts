@@ -4,6 +4,7 @@ import paths from '../lib/paths';
 export default {
 
   getHosts() {
+    console.log(fs);
     try {
       const data = JSON.parse(fs.readFileSync(paths.dataPath, 'utf-8'));
       return data;
