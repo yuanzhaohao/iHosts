@@ -30,7 +30,7 @@ export default class Panel extends React.Component {
               <Icon type={index === 0 ? 'desktop' : 'file-text'} />
               <span className="item-text">{itemData.title}</span>
               {index !== 0
-                ? <PanelOperation />
+                ? <PanelOperation itemData={itemData} index={index} />
                 : null
               }
             </li>
