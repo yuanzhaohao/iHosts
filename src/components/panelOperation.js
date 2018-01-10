@@ -2,9 +2,7 @@
 
 import React from 'react';
 import {Icon, Switch} from 'antd';
-import emitter from '../lib/emitter';
-import hosts from '../models/hosts';
-import './panel.less';
+import emitter from '@/lib/emitter';
 
 export default class PanelOperation extends React.Component {
   constructor(props) {
@@ -48,7 +46,7 @@ export default class PanelOperation extends React.Component {
   onDeleteClick = (e) => {
     const {itemData, index} = this.props;
 
-    console.log('call onDeleteClick');
+
     e.stopPropagation();
   }
 }

@@ -3,7 +3,6 @@
 import React from 'react';
 import codeMirror from 'codemirror';
 import classNames from 'classnames';
-import hosts from '../models/hosts';
 import { countRules } from '../lib/utils';
 import 'codemirror/lib/codemirror.css';
 import './editor.less';
@@ -52,9 +51,6 @@ codeMirror.defineMode('hosts', function() {
   };
 });
 
-const isMac = codeMirror.keyMap.default === codeMirror.keyMap.macDefault;
-
-
 export default class Editor extends React.Component {
   constructor(props) {
     super(props);
@@ -62,7 +58,7 @@ export default class Editor extends React.Component {
 
   componentDidMount() {
     const {currentIndex, list} = this.props;
-    const saveKey = `${isMac ? 'Cmd' : 'Ctrl'}-S`;
+    const saveKey = `${process.platform === 'darwin' ? 'Cmd' : 'Ctrl'}-S`;
     const extraKeys = {};
 
     extraKeys[saveKey] = this.handleSave;

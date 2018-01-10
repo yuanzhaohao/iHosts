@@ -2,7 +2,7 @@
 
 import React from 'react';
 import {Button, Input} from 'antd';
-import hosts from '../models/hosts';
+import { addHost } from '@/lib/hosts';
 import './setting.less';
 
 export default class Setting extends React.Component {
@@ -29,7 +29,7 @@ export default class Setting extends React.Component {
     const {onOKClick} = this.props;
     const {value} = this.state;
     if (value) {
-      hosts.addHost(value);
+      addHost(value);
       this.setState({
         value: '',
       });

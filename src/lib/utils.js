@@ -27,7 +27,6 @@ export const countRules = (text) => {
   let ret = null;
   let count = 0;
   while ((ret = HOSTS_REG.exec(text)) !== null) {
-    console.log(ret);
     count++;
   }
   return count;
