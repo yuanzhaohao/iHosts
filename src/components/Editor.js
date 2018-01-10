@@ -4,8 +4,10 @@ import React from 'react';
 import codeMirror from 'codemirror';
 import classNames from 'classnames';
 import hosts from '../models/hosts';
+import { countRules } from '../lib/utils';
 import 'codemirror/lib/codemirror.css';
 import './editor.less';
+
 
 codeMirror.defineMode('hosts', function() {
   function tokenBase(stream) {
@@ -93,6 +95,7 @@ export default class Editor extends React.Component {
     const {currentIndex, list} = this.props;
     const itemData = list[currentIndex];
     const hostsCode = itemData.content || '';
+    console.log(countRules(hostsCode));
     console.log(hostsCode);
     return (
       <div className={classNames(['editor', {'editor-readonly': itemData.isSys}])}>

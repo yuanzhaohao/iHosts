@@ -1,12 +1,10 @@
 import fs from 'fs';
-import paths from '../lib/paths';
+import { DATA_PATH } from '../lib/constants';
 
 export default {
-
   getHosts() {
-    console.log(fs);
     try {
-      const data = JSON.parse(fs.readFileSync(paths.dataPath, 'utf-8'));
+      const data = JSON.parse(fs.readFileSync(DATA_PATH, 'utf-8'));
       return data;
     } catch (e) {
       return [];
@@ -16,20 +14,20 @@ export default {
 
   storeHosts(data) {
     try {
-      fs.writeFileSync(paths.dataPath, JSON.stringify(data), 'utf-8');
+      fs.writeFileSync(DATA_PATH, JSON.stringify(data), 'utf-8');
     } catch (e) {
     }
   },
 
   addHost(name) {
-    let data = JSON.parse(fs.readFileSync(paths.dataPath, 'utf-8'));
+    let data = JSON.parse(fs.readFileSync(DATA_PATH, 'utf-8'));
     console.log(data);
     if (data && data.list && data.list instanceof Array) {
       data.list.push({
         content: `# ${name}\n`,
         title: name
       });
-      fs.writeFileSync(paths.dataPath, JSON.stringify(data), 'utf-8');
+      fs.writeFileSync(DATA_PATH, JSON.stringify(data), 'utf-8');
     }
   }
 };
