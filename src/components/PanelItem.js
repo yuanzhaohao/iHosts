@@ -68,7 +68,6 @@ export default class PanelItem extends React.Component {
   onDeleteClick = (e) => {
     const {itemData, index} = this.props;
 
-
     e.stopPropagation();
   }
 }

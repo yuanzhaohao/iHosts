@@ -3,7 +3,7 @@ import 'antd/dist/antd.less';
 import '@/less/index.less';
 
 import emitter from '@/lib/emitter';
-import { getHosts, } from '@/lib/hosts';
+import { getHosts, addHost } from '@/lib/hosts';
 
 import Search from '@/components/Search';
 import Panel from '@/components/Panel';
@@ -31,8 +31,13 @@ export default class App extends React.Component {
     emitter.on('updateList', () => {
       const hostsData = getHosts();
       this.setState({
-        listData: hostsData.list,
+        listData: hostsData.listData,
       });
+    });
+    emitter.on('addHost', params => {
+      if (params.data) {
+        addHost(params.data);
+      }
     });
   }
 

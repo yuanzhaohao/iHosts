@@ -60,8 +60,6 @@ export default class Setting extends React.Component {
     this.hide();
   }
 
-
-
   onVisibleChange = (visible) => {
     this.setState({ visible });
   }

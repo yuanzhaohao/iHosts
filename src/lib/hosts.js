@@ -23,6 +23,7 @@ export function addHost(name) {
       content: `# ${name}\n`,
       title: name
     });
+    console.log(data);
     fs.writeFileSync(DATA_PATH, JSON.stringify(data), 'utf-8');
   }
 }
