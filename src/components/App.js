@@ -17,7 +17,7 @@ export default class App extends React.Component {
     const hostsData = getHosts();
     console.log(hostsData);
     this.state = {
-      list: hostsData.list,
+      listData: hostsData.listData,
       currentIndex: 0,
     };
   }
@@ -31,18 +31,18 @@ export default class App extends React.Component {
     emitter.on('updateList', () => {
       const hostsData = getHosts();
       this.setState({
-        list: hostsData.list,
+        listData: hostsData.list,
       });
     });
   }
 
   render() {
-    const {list, currentIndex} = this.state;
+    const {listData, currentIndex} = this.state;
     return (
       <div className="container">
         <Search />
-        <Panel list={list} currentIndex={currentIndex} />
-        <Editor list={list} currentIndex={currentIndex} />
+        <Panel listData={listData} currentIndex={currentIndex} />
+        <Editor listData={listData} currentIndex={currentIndex} />
         <Setting />
       </div>
     );

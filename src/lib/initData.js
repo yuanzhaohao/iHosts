@@ -17,7 +17,7 @@ export default function initData() {
     try {
       const cnt = fs.readFileSync(SYS_HOSTS_PATH, 'utf-8');
       const defaultData = {
-        list: [{
+        listData: [{
           title: 'System Hosts',
           content: cnt,
           isSys: true

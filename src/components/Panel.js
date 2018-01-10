@@ -1,10 +1,8 @@
 'use strict';
 
 import React from 'react';
-import classNames from 'classnames';
 import { Icon } from 'antd';
-import emitter from '../lib/emitter';
-import PanelOperation from './panelOperation';
+import PanelItem from './PanelItem';
 import './panel.less';
 
 export default class Panel extends React.Component {
@@ -13,36 +11,18 @@ export default class Panel extends React.Component {
   }
 
   render() {
-    const {list, currentIndex} = this.props;
+    const {listData, currentIndex} = this.props;
     return (
       <div className="panel">
         <ul className="panel-list">
-        {list && list.length
-          ? list.map((itemData, index) =>
-            <li key={index}
-              className={classNames(['item', {
-                'header': index === 0
-              }, {
-                'active': index === currentIndex
-              }])}
-              onClick={this.onItemClick.bind(this, itemData, index)}
-            >
-              <Icon type={index === 0 ? 'desktop' : 'file-text'} />
-              <span className="item-text">{itemData.title}</span>
-              {index !== 0
-                ? <PanelOperation itemData={itemData} index={index} />
-                : null
-              }
-            </li>
-          )
-          : null
-        }
+          {listData && listData.length
+            ? listData.map((itemData, index) =>
+              <PanelItem key={index} itemData={itemData} index={index} currentIndex={currentIndex} />
+            )
+            : null
+          }
         </ul>
       </div>
     );
-  }
-
-  onItemClick = (itemData, index) => {
-    emitter.emit('switchHost', index);
   }
 }

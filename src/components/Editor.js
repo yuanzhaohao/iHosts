@@ -57,7 +57,7 @@ export default class Editor extends React.Component {
   }
 
   componentDidMount() {
-    const {currentIndex, list} = this.props;
+    const {currentIndex, listData} = this.props;
     const saveKey = `${process.platform === 'darwin' ? 'Cmd' : 'Ctrl'}-S`;
     const extraKeys = {};
 
@@ -67,8 +67,8 @@ export default class Editor extends React.Component {
       mode: 'hosts',
       extraKeys,
     });
-    if (list && list[currentIndex]) {
-      if (list[currentIndex].isSys) {
+    if (listData && listData[currentIndex]) {
+      if (listData[currentIndex].isSys) {
         this.cm.setOption('readOnly', true);
       }
     }
@@ -77,22 +77,24 @@ export default class Editor extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.currentIndex !== this.props.currentIndex) {
       const value = this.getCmValue();
-      const {currentIndex, list} = nextProps;
-      if (list && list[currentIndex]) {
-        const newCode = list[currentIndex].content;
+      const {currentIndex, listData} = nextProps;
+      if (listData && listData[currentIndex]) {
+        const newCode = listData[currentIndex].content;
         const doc = this.cm.getDoc();
         doc.setValue(newCode);
-        this.cm.setOption('readOnly', list[currentIndex].isSys);
+        this.cm.setOption('readOnly', listData[currentIndex].isSys);
       }
     }
   }
 
   render() {
-    const {currentIndex, list} = this.props;
-    const itemData = list[currentIndex];
-    const hostsCode = itemData.content || '';
-    console.log(countRules(hostsCode));
-    console.log(hostsCode);
+    const {currentIndex, listData} = this.props;
+    let itemData = {};
+    let hostsCode = '';
+    try {
+      itemData = listData[currentIndex];
+      hostsCode = itemData.content || '';
+    } catch (e) {}
     return (
       <div className={classNames(['editor', {'editor-readonly': itemData.isSys}])}>
         <textarea ref="editor" defaultValue={hostsCode}></textarea>
@@ -106,8 +108,8 @@ export default class Editor extends React.Component {
   }
 
   handleSave = () => {
-    const {currentIndex, list} = this.props;
-    const currentItem = list[currentIndex];
+    const {currentIndex, listData} = this.props;
+    const currentItem = listData[currentIndex];
 
     if (currentItem.isSys) {
       console.log('system hosts, do nothing');
@@ -116,7 +118,7 @@ export default class Editor extends React.Component {
       if (newCode !== currentItem.content) {
         currentItem.content = newCode;
         hosts.storeHosts({
-          list
+          listData
         });
       }
     }
