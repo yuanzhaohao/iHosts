@@ -30,5 +30,9 @@ export function addHost(name) {
 
 export function deleteHost(index) {
   const data = getHosts();
-  console.log(hostsData);
+  if (data && data.listData && data.listData instanceof Array) {
+    data.listData.splice(index, 1);
+    console.log(data);
+    fs.writeFileSync(DATA_PATH, JSON.stringify(data), 'utf-8');
+  }
 }

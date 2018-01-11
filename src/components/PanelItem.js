@@ -4,6 +4,7 @@ import React from 'react';
 import {Icon, Switch} from 'antd';
 import classNames from 'classnames';
 import emitter from '@/lib/emitter';
+import { deleteHost } from '@/lib/hosts';
 
 export default class PanelItem extends React.Component {
   constructor(props) {
@@ -68,6 +69,8 @@ export default class PanelItem extends React.Component {
   onDeleteClick = (e) => {
     const {itemData, index} = this.props;
 
+    deleteHost(index);
+    emitter.emit('updateList');
     e.stopPropagation();
   }
 }

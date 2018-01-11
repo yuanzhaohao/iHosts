@@ -15,6 +15,8 @@ export default class Setting extends React.Component {
     this.state = {
       visible: false
     };
+
+    emitter.on('hideSetting', this.hide);
   }
 
   render() {
@@ -24,7 +26,7 @@ export default class Setting extends React.Component {
           <Icon type="setting" />
         </div>
         <Popover
-          content={<SettingAdd onOKClick={this.onOKClick} onCancelClick={this.onCancelClick} />}
+          content={<SettingAdd />}
           title="新增Host"
           trigger="click"
           visible={this.state.visible}
@@ -49,15 +51,6 @@ export default class Setting extends React.Component {
       visible: true
     });
     e.stopPropagation();
-  }
-
-  onOKClick = () => {
-    this.hide();
-    emitter.emit('updateList');
-  }
-
-  onCancelClick = () => {
-    this.hide();
   }
 
   onVisibleChange = (visible) => {

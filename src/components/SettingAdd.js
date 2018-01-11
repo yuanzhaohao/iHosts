@@ -2,6 +2,7 @@
 
 import React from 'react';
 import {Button, Input} from 'antd';
+import emitter from '@/lib/emitter';
 import { addHost } from '@/lib/hosts';
 import './setting.less';
 
@@ -26,27 +27,22 @@ export default class Setting extends React.Component {
   }
 
   onOKClick = () => {
-    const {onOKClick} = this.props;
     const {value} = this.state;
     if (value) {
-      addHost(value);
       this.setState({
         value: '',
       });
-      if (typeof onOKClick === 'function') {
-        onOKClick();
-      }
+      addHost(value);
+      emitter.emit('updateList');
+      emitter.emit('hideSetting');
     }
   }
 
   onCancelClick = () => {
-    const {onCancelClick} = this.props;
-    if (typeof onCancelClick === 'function') {
-      onCancelClick();
-      this.setState({
-        value: '',
-      });
-    }
+    this.setState({
+      value: ''
+    });
+    emitter.emit('hideSetting');
   }
 
   onNameChange = (e) => {
