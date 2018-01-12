@@ -29,13 +29,26 @@
 }
 
 .setting-add {
-  width: 220px;
+  text-align: center;
+  white-space: nowrap;
+
+  &:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    width: 0;
+  }
+
+  .ant-modal {
+    display: inline-block;
+    vertical-align: middle;
+    top: 0;
+    text-align: left;
+  }
 }
 
 .setting-name {
-  margin-bottom: 10px;
-}
-
-.setting-cancel {
-  margin-left: 8px;
+  width: 200px;
+  margin: 0 35px;
 }

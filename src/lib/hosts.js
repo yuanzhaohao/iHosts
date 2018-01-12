@@ -28,6 +28,14 @@ export function addHost(name) {
   }
 }
 
+export function updateHostTitle(title, index) {
+  const data = getHosts();
+  if (data && data.listData && data.listData instanceof Array && data.listData[index]) {
+    data.listData[index].title = title;
+    fs.writeFileSync(DATA_PATH, JSON.stringify(data), 'utf-8');
+  }
+}
+
 export function deleteHost(index) {
   const data = getHosts();
   if (data && data.listData && data.listData instanceof Array) {

@@ -1,11 +1,10 @@
 'use strict';
 
 import React from 'react';
-import { Icon, Popover } from 'antd';
+import { Icon, Modal, Input } from 'antd';
+import emitter from '@/lib/emitter';
+import { addHost, updateHostTitle } from '@/lib/hosts';
 
-import emitter from '../lib/emitter';
-
-import SettingAdd from './SettingAdd';
 import './setting.less';
 
 export default class Setting extends React.Component {
@@ -13,37 +12,50 @@ export default class Setting extends React.Component {
     super(props);
 
     this.state = {
-      visible: false
+      visible: false,
+      value: '',
+      isEdit: false,
+      index: 0,
     };
-
-    emitter.on('hideSetting', this.hide);
+    emitter.on('showEditModal', (params) => {
+      if (params.name) {
+        this.setState({
+          value: params.name,
+          index: params.index,
+          visible: true,
+          isEdit: true,
+        });
+      }
+    });
   }
 
   render() {
+    const { isEdit, value, visible } = this.state;
     return (
       <div className="setting clearfix">
         <div className="setting-item">
           <Icon type="setting" />
         </div>
-        <Popover
-          content={<SettingAdd />}
-          title="新增Host"
-          trigger="click"
-          visible={this.state.visible}
-          onVisibleChange={this.onVisibleChange}
+        <div className="setting-item" onClick={this.onAddClick}>
+          <Icon type="plus" />
+        </div>
+        <Modal
+          title={isEdit ? '编辑Host' : '新增Host'}
+          wrapClassName="setting-add"
+          visible={visible}
+          onOk={this.onOKClick}
+          onCancel={this.onCancelClick}
+          okText="确认"
+          cancelText="取消"
         >
-          <div className="setting-item" onClick={this.onAddClick}>
-            <Icon type="plus" />
-          </div>
-        </Popover>
+          <Input className="setting-name"
+            type="text"
+            placeholder="host名称"
+            value={value}
+            onChange={this.onNameChange} />
+        </Modal>
       </div>
     );
-  }
-
-  hide = () => {
-    this.setState({
-      visible: false
-    });
   }
 
   onAddClick = (e) => {
@@ -53,7 +65,34 @@ export default class Setting extends React.Component {
     e.stopPropagation();
   }
 
-  onVisibleChange = (visible) => {
-    this.setState({ visible });
+  onOKClick = () => {
+    const {value, index} = this.state;
+    if (value) {
+      this.setState({
+        value: '',
+        visible: false,
+        isEdit: false,
+        index: 0,
+      });
+      if (index) updateHostTitle(value, index)
+      else addHost(value)
+      emitter.emit('updateList');
+    }
+  }
+
+  onCancelClick = () => {
+    this.setState({
+      value: '',
+      visible: false,
+      isEdit: false,
+      index: 0,
+    });
+  }
+
+  onNameChange = (e) => {
+    let value = e.currentTarget.value;
+    this.setState({
+      value: value.trim()
+    });
   }
 }

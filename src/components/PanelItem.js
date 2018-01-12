@@ -63,6 +63,11 @@ export default class PanelItem extends React.Component {
     const {itemData, index} = this.props;
 
     console.log('call onEditClick');
+    console.log(itemData);
+    emitter.emit('showEditModal', {
+      name: itemData.title,
+      index,
+    });
     e.stopPropagation();
   }
 
