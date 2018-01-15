@@ -7,7 +7,7 @@ export function getHosts() {
   try {
     return JSON.parse(fs.readFileSync(DATA_PATH, 'utf-8'));
   } catch (e) {}
-  return {};
+  return [];
 }
 
 export function storeHosts(data) {
