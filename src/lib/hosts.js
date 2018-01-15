@@ -1,7 +1,8 @@
 'use strict';
 
 import fs from 'fs';
-import { DATA_PATH } from '../lib/constants';
+import { mergeHosts } from '@/lib/utils';
+import { DATA_PATH, HOSTS_REG, SYS_HOSTS_PATH } from '@/lib/constants';
 
 export function getHosts() {
   try {
@@ -10,10 +11,28 @@ export function getHosts() {
   return [];
 }
 
-export function storeHosts(data) {
-  try {
+export function storeHosts(content, index) {
+  const data = getHosts();
+  if (data && data.listData && data.listData instanceof Array && data.listData[index]) {
+    data.listData[index].content = content;
     fs.writeFileSync(DATA_PATH, JSON.stringify(data), 'utf-8');
-  } catch (e) {}
+  }
+}
+
+export function selectHosts(content, index) {
+  const data = getHosts();
+  if (data && data.listData && data.listData instanceof Array && data.listData[index]) {
+    let systemItem = data.listData[0];
+    let newHosts = mergeHosts(systemItem.content, content);
+    console.log(newHosts);
+
+    if (newHosts && newHosts.length) {
+      systemItem.content += `\n${newHosts.join('\n')}`;
+      fs.writeFileSync(SYS_HOSTS_PATH, systemItem.content, 'utf-8');
+    }
+    data.listData[index].content = content;
+    fs.writeFileSync(DATA_PATH, JSON.stringify(data), 'utf-8');
+  }
 }
 
 export function addHost(name) {
@@ -23,7 +42,6 @@ export function addHost(name) {
       content: `# ${name}\n`,
       title: name
     });
-    console.log(data);
     fs.writeFileSync(DATA_PATH, JSON.stringify(data), 'utf-8');
   }
 }
@@ -40,7 +58,6 @@ export function deleteHost(index) {
   const data = getHosts();
   if (data && data.listData && data.listData instanceof Array) {
     data.listData.splice(index, 1);
-    console.log(data);
     fs.writeFileSync(DATA_PATH, JSON.stringify(data), 'utf-8');
   }
 }

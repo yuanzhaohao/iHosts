@@ -4,7 +4,7 @@ import React from 'react';
 import {Icon, Switch} from 'antd';
 import classNames from 'classnames';
 import emitter from '@/lib/emitter';
-import { deleteHost } from '@/lib/hosts';
+import { deleteHost, selectHosts } from '@/lib/hosts';
 
 export default class PanelItem extends React.Component {
   constructor(props) {
@@ -22,6 +22,7 @@ export default class PanelItem extends React.Component {
           'active': index === currentIndex
         }])}
         onClick={this.onItemClick}
+        onDoubleClick={this.onItemDbClick}
       >
         <Icon type={index === 0 ? 'desktop' : 'file-text'} />
         <span className="item-text">{itemData.title}</span>
@@ -43,6 +44,15 @@ export default class PanelItem extends React.Component {
     );
   }
 
+  showEditModal = () => {
+    const {itemData, index} = this.props;
+
+    emitter.emit('showEditModal', {
+      name: itemData.title,
+      index,
+    });
+  }
+
   onItemClick = () => {
     const {itemData, index} = this.props;
 
@@ -54,20 +64,19 @@ export default class PanelItem extends React.Component {
     console.log(itemData);
     if (checked) {
       itemData.active = true;
+      selectHosts(itemData.content, index);
     } else {
       itemData.active = false;
     }
   }
 
   onEditClick = (e) => {
-    const {itemData, index} = this.props;
+    this.showEditModal();
+    e.stopPropagation();
+  }
 
-    console.log('call onEditClick');
-    console.log(itemData);
-    emitter.emit('showEditModal', {
-      name: itemData.title,
-      index,
-    });
+  onItemDbClick = (e) => {
+    this.showEditModal();
     e.stopPropagation();
   }
 

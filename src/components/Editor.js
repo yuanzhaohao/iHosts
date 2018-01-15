@@ -3,7 +3,9 @@
 import React from 'react';
 import codeMirror from 'codemirror';
 import classNames from 'classnames';
-import { countRules } from '../lib/utils';
+import { countRules } from '@/lib/utils';
+import { storeHosts } from '@/lib/hosts';
+import emitter from '@/lib/emitter';
 import 'codemirror/lib/codemirror.css';
 import './editor.less';
 
@@ -111,15 +113,11 @@ export default class Editor extends React.Component {
     const {currentIndex, listData} = this.props;
     const currentItem = listData[currentIndex];
 
-    if (currentItem.isSys) {
-      console.log('system hosts, do nothing');
-    } else {
-      const newCode = this.getCmValue();
+    if (!currentItem.isSys) {
+      const newCode = this.getCmValue().trim();
       if (newCode !== currentItem.content) {
-        currentItem.content = newCode;
-        hosts.storeHosts({
-          listData
-        });
+        storeHosts(newCode, currentIndex);
+        emitter.emit('updateList');
       }
     }
   }

@@ -31,3 +31,32 @@ export const countRules = (text) => {
   }
   return count;
 }
+
+
+export function mergeHosts(originHosts, newHosts) {
+  let originMatches = originHosts.match(HOSTS_REG);
+  let matches = newHosts.match(HOSTS_REG);
+  let mapObj = {};
+  let result = [];
+  let reg = /\n|\r|\t/g;
+
+  console.log(matches);
+  // 确保hosts不重复
+  if (originMatches && originMatches.length
+    && matches &&  matches.length
+  ) {
+    originMatches.forEach(item => {
+      let key = item.replace(reg, '');
+      mapObj[key] = true;
+    });
+    matches.forEach(item => {
+      let key = item.replace(reg, '');
+
+      if (!mapObj[key]) {
+        result.push(item);
+      }
+    });
+    return result;
+  }
+  return null;
+}
