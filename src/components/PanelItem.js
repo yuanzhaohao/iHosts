@@ -35,7 +35,7 @@ export default class PanelItem extends React.Component {
               <Icon type="edit" />
             </div>
             <div className="operation-item">
-              <Switch onChange={this.onHostChange} />
+              <Switch onChange={this.onHostChange} defaultChecked={itemData.active === true} />
             </div>
           </div>
           : null
@@ -63,7 +63,6 @@ export default class PanelItem extends React.Component {
     const {itemData, index} = this.props;
     console.log(itemData);
     if (checked) {
-      itemData.active = true;
       selectHosts(itemData.content, index);
     } else {
       itemData.active = false;

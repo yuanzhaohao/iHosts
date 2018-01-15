@@ -117,7 +117,6 @@ export default class Editor extends React.Component {
       const newCode = this.getCmValue().trim();
       if (newCode !== currentItem.content) {
         storeHosts(newCode, currentIndex);
-        emitter.emit('updateList');
       }
     }
   }
