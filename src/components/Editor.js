@@ -3,6 +3,7 @@
 import React from 'react';
 import codeMirror from 'codemirror';
 import classNames from 'classnames';
+import { message } from 'antd';
 import { countRules } from '@/lib/utils';
 import { storeHosts } from '@/lib/hosts';
 import emitter from '@/lib/emitter';
@@ -117,6 +118,7 @@ export default class Editor extends React.Component {
       const newCode = this.getCmValue().trim();
       if (newCode !== currentItem.content) {
         storeHosts(newCode, currentIndex);
+        message.success('保存成功');
       }
     }
   }

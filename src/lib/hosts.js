@@ -66,5 +66,6 @@ export function deleteHost(index) {
   if (data && data.listData && data.listData instanceof Array) {
     data.listData.splice(index, 1);
     fs.writeFileSync(DATA_PATH, JSON.stringify(data), 'utf-8');
+    emitter.emit('updateList');
   }
 }

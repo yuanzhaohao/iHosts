@@ -83,7 +83,6 @@ export default class PanelItem extends React.Component {
     const {itemData, index} = this.props;
 
     deleteHost(index);
-    emitter.emit('updateList');
     e.stopPropagation();
   }
 }
