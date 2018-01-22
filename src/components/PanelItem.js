@@ -4,7 +4,7 @@ import React from 'react';
 import { Icon, Switch, message } from 'antd';
 import classNames from 'classnames';
 import emitter from '@/lib/emitter';
-import { deleteHost, selectHosts } from '@/lib/hosts';
+import { deleteHosts, selectHosts, cancelHosts } from '@/lib/hosts';
 
 export default class PanelItem extends React.Component {
   constructor(props) {
@@ -61,11 +61,11 @@ export default class PanelItem extends React.Component {
 
   onHostChange = (checked) => {
     const {itemData, index} = this.props;
-    console.log(itemData);
+    console.log(checked);
     if (checked) {
       selectHosts(itemData.content, index);
     } else {
-      itemData.active = false;
+      cancelHosts(itemData.content, index);
     }
   }
 
@@ -82,8 +82,7 @@ export default class PanelItem extends React.Component {
   onDeleteClick = (e) => {
     const {itemData, index} = this.props;
 
-    deleteHost(index);
-    emitter.emit('updateIndex', 0); // 删除后回到系统hosts
+    deleteHosts(index);
     message.success('删除成功');
     e.stopPropagation();
   }

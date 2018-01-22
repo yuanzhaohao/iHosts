@@ -60,3 +60,7 @@ export function mergeHosts(originHosts, newHosts) {
   }
   return null;
 }
+
+export function unMergeHosts(originHosts, newHosts) {
+
+}

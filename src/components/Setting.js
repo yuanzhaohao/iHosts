@@ -3,7 +3,7 @@
 import React from 'react';
 import { Icon, Modal, Input } from 'antd';
 import emitter from '@/lib/emitter';
-import { addHost, updateHostTitle } from '@/lib/hosts';
+import { addHosts, updateHostTitle } from '@/lib/hosts';
 
 import './setting.less';
 
@@ -75,7 +75,7 @@ export default class Setting extends React.Component {
         index: 0,
       });
       if (index) updateHostTitle(value, index)
-      else addHost(value)
+      else addHosts(value)
       emitter.emit('updateList');
     }
   }

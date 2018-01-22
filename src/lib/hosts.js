@@ -2,7 +2,7 @@
 
 import fs from 'fs';
 import emitter from '@/lib/emitter';
-import { mergeHosts } from '@/lib/utils';
+import { mergeHosts, unMergeHosts } from '@/lib/utils';
 import { DATA_PATH, HOSTS_REG, SYS_HOSTS_PATH } from '@/lib/constants';
 
 export function getHosts() {
@@ -42,7 +42,28 @@ export function selectHosts(content, index) {
   }
 }
 
-export function addHost(name) {
+export function cancelHosts(content, index) {
+  const data = getHosts();
+  if (data && data.listData && data.listData instanceof Array && data.listData[index]) {
+    let systemItem = data.listData[0];
+    let currentItem = data.listData[index];
+    let newHosts = mergeHosts(systemItem.content, content);
+    console.log(newHosts);
+
+    if (newHosts && newHosts.length) {
+      systemItem.content += `\n${newHosts.join('\n')}`;
+      fs.writeFileSync(SYS_HOSTS_PATH, systemItem.content, 'utf-8');
+    }
+
+    console.log(systemItem);
+    currentItem.content = content;
+    currentItem.active = false;
+    fs.writeFileSync(DATA_PATH, JSON.stringify(data), 'utf-8');
+    emitter.emit('updateList');
+  }
+}
+
+export function addHosts(name) {
   const data = getHosts();
   if (data && data.listData && data.listData instanceof Array) {
     data.listData.push({
@@ -61,11 +82,12 @@ export function updateHostTitle(title, index) {
   }
 }
 
-export function deleteHost(index) {
+export function deleteHosts(index) {
   const data = getHosts();
   if (data && data.listData && data.listData instanceof Array) {
     data.listData.splice(index, 1);
     fs.writeFileSync(DATA_PATH, JSON.stringify(data), 'utf-8');
     emitter.emit('updateList');
+    emitter.emit('updateIndex', 0); // 删除后回到系统hosts
   }
 }
