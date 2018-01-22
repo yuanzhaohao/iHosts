@@ -34,6 +34,15 @@ export default class App extends React.Component {
         listData: hostsData.listData
       });
     });
+    emitter.on('updateIndex', index => {
+      const { currentIndex } = this.state;
+
+      if (currentIndex !== index) {
+        this.setState({
+          currentIndex: index
+        });
+      }
+    });
   }
 
   render() {
