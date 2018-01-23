@@ -40,7 +40,6 @@ export function mergeHosts(originHosts, newHosts) {
   let result = [];
   let reg = /\n|\r|\t/g;
 
-  console.log(matches);
   // 确保hosts不重复
   if (originMatches && originMatches.length
     && matches &&  matches.length
@@ -62,5 +61,30 @@ export function mergeHosts(originHosts, newHosts) {
 }
 
 export function unMergeHosts(originHosts, newHosts) {
+  let originMatches = originHosts.match(HOSTS_REG);
+  let matches = newHosts.match(HOSTS_REG);
+  let mapObj = {};
+  let result = [];
+  let reg = /\n|\r|\t|\s/g;
 
+  // 确保hosts不重复
+  if (originMatches && originMatches.length
+    && matches &&  matches.length
+  ) {
+    console.log(originMatches, matches);
+    matches.forEach(item => {
+      let key = item.replace(reg, '');
+      mapObj[key] = true;
+    });
+    console.log(mapObj);
+    originMatches.forEach(item => {
+      let key = item.replace(reg, '');
+      console.log(item, '|||', key);
+      if (mapObj[key]) {
+        result.push(item);
+      }
+    });
+    return result;
+  }
+  return null;
 }

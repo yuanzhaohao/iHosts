@@ -27,14 +27,12 @@ export function selectHosts(content, index) {
     let systemItem = data.listData[0];
     let currentItem = data.listData[index];
     let newHosts = mergeHosts(systemItem.content, content);
-    console.log(newHosts);
 
     if (newHosts && newHosts.length) {
       systemItem.content += `\n${newHosts.join('\n')}`;
       fs.writeFileSync(SYS_HOSTS_PATH, systemItem.content, 'utf-8');
     }
 
-    console.log(systemItem);
     currentItem.content = content;
     currentItem.active = true;
     fs.writeFileSync(DATA_PATH, JSON.stringify(data), 'utf-8');
@@ -47,19 +45,18 @@ export function cancelHosts(content, index) {
   if (data && data.listData && data.listData instanceof Array && data.listData[index]) {
     let systemItem = data.listData[0];
     let currentItem = data.listData[index];
-    let newHosts = mergeHosts(systemItem.content, content);
+    let newHosts = unMergeHosts(systemItem.content, content);
     console.log(newHosts);
 
-    if (newHosts && newHosts.length) {
-      systemItem.content += `\n${newHosts.join('\n')}`;
-      fs.writeFileSync(SYS_HOSTS_PATH, systemItem.content, 'utf-8');
-    }
+    // if (newHosts && newHosts.length) {
+    //   systemItem.content += `\n${newHosts.join('\n')}`;
+    //   fs.writeFileSync(SYS_HOSTS_PATH, systemItem.content, 'utf-8');
+    // }
 
-    console.log(systemItem);
-    currentItem.content = content;
-    currentItem.active = false;
-    fs.writeFileSync(DATA_PATH, JSON.stringify(data), 'utf-8');
-    emitter.emit('updateList');
+    // currentItem.content = content;
+    // currentItem.active = false;
+    // fs.writeFileSync(DATA_PATH, JSON.stringify(data), 'utf-8');
+    // emitter.emit('updateList');
   }
 }
 
